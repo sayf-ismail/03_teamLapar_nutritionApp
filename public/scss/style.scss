@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Prata&family=Roboto:wght@300;400;500&display=swap');
+// Variable overrides
+$theme-colors: (
+    "primary": #9dca00
+);
+$font-weight-light: 400;
+$white: #fff;
+$black: #000;
+$link-hover-decoration: none;
+$headings-font-family: 'Prata';
+$headings-font-weight: 300;
+$font-family-base: 'Roboto', san-serif;
+$body-bg: #f6f6f6;
+$body-color: #86898c;
+$font-weight-base: 300;
+.shadow-box {
+    box-shadow: 0 0 12px 0 rgba($color: #000000, $alpha: 0.05);
+}
+.section-gap {
+    padding: 6.25rem 0;
+}
+// Navbar Header
+#main-header {
+    position: absolute;
+    width: 100%;
+    height: 4.125rem;
+    z-index: 999;
+    background: transparent;
+    .brand {
+        color: $white;
+        font-size: 1.25rem;
+        letter-spacing: 1px;
+    }
+    .desktop-navbar {
+        ul li a {
+            color: $white;
+            font-size: 1.125rem;
+            font-weight: 400;
+        }
+    }
+    .desktop-nav {
+        height: 100%;
+        .container {
+            height: 100%;
+        }
+    }
+    .mobile-nav {
+        #hamburger {
+            background: none;
+            border: none;
+        }
+    }
+}
+// Hero Section
+#hero {
+    position: relative;
+    height: 100vh;
+    #hero-1 {
+        background: url('../images/hero-1.jpeg') no-repeat;
+        background-size: cover;
+        background-position: center center;
+    }
+    #hero-2 {
+        background: url('../images/hero-2.jpeg') no-repeat;
+        background-size: cover;
+        background-position: center center;
+    }
+    #hero-3 {
+        background: url('../images/hero-3.jpeg') no-repeat;
+        background-size: cover;
+        background-position: center center;
+    }
+    .banner-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 4s ease-in-out;
+    }
+    .banner-wrapper.active {
+        opacity: 1;
+        z-index: 5;
+    } 
+    .banner-wrapper:nth-child(1) {
+        z-index: 3;
+    }
+    .banner-wrapper:nth-child(2) {
+        z-index: 2;
+    }
+    .banner-wrapper:nth-child(3) {
+        z-index: 1;
+    }
+    .hero-wrapper {
+        position: relative;
+    }
+    .hero-banner {
+        position: relative;
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            opacity: .2;
+        }
+    }
+    .banner-text {
+        position: relative;
+        flex: 0 0 50%;
+        p.sub-text {
+            position: relative;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            &::before {
+                content: '';
+                height: 2px;
+                flex: 0 0 12%;
+                background-color: #9dca00;
+                margin-right: 0.825rem;
+            }
+        }
+        h1 {
+            font-size: 3.575rem;
+            font-weight: $font-weight-light;
+            color: $white;
+            // animation: fade-in-down ease-in .5s;
+        }
+        p.inner-text {
+            color: $white;
+            font-size: 1rem;
+        }
+    }
+    .btn-container {
+        .btn {
+            border-radius: 30px;
+            width: 150px;
+            height: 50px;
+            line-height: 35px;
+            font-size: 0.875rem;
+        }
+    }
+}
+// Bootstrap abd its default variables
+@import "../../node_modules/bootstrap/scss/bootstrap";

@@ -2,19 +2,22 @@ const express = require('express');
 const bodyParser = require("body-parser");
 const app = express ();
 const passport = require('passport');
-const brcypt = require('brcypt')
+// const brcypt = require('brcypt')
 
-const initializePassport = require('./passport-config')
+// const initializePassport = require('./passport-config')
 
 app.set('view engine', 'ejs')
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use('/public', express.static('public'));
 
 // Setting up DB connection
 const pg = require('pg')
 let pool = new pg.Pool({
-    // database: 'food_nutrition'  <----change to actual name of DB
+    database: 'food_db',  //<----change to actual name of DB
+    username: 'charis',
+    password: 'test'
 }) 
 
 app.get('/', (req, res) => {
@@ -27,6 +30,17 @@ app.get('/', (req, res) => {
 //       res.json(db_res.rows)
 //   })
 // })
+function run_sql(sql,cb){
+  pool.query(sql, (err,res) => {
+      cb(res)
+  })
+}
+
+app.get('/api/food_db', (req, res) => {
+  run_sql('SELECT * FROM food_details', db_res => {
+      res.json(db_res.rows)
+  })
+})
 
 //Login
 app.get('/login',(req,res) =>{
@@ -37,20 +51,20 @@ app.get('/login',(req,res) =>{
   res.render('login.ejs',{name:name, email: email})
 })
 
-app.post('/login',(req,res) => {
+// app.post('/login',(req,res) => {
   //params
-  try{
-    const hashedPassword = await brcypt.hash(req.body.password,10)
-    var name = req.body.name;
-    var email = req.body.email;
-    var password = hashedPassword;
+  // try{
+    // const hashedPassword = await brcypt.hash(req.body.password,10)
+    // var name = req.body.name;
+    // var email = req.body.email;
+    // var password = hashedPassword;
    //if succesful, direct to login.ejs
-    res.redirect('login')
+    // res.redirect('login')
   //if unsucessful, direct to register.ejs
-  } catch {
-      res.redirect('/register')
-  }
-})
+  // } catch {
+      // res.redirect('/register')
+  // }
+// })
 
 
 
@@ -59,3 +73,4 @@ app.post('/login',(req,res) => {
 app.listen(4567, function(){
   console.log("Server started on port 4567")
 })
+

@@ -29,4 +29,6 @@ INSERT INTO food_details(dish, portion, calories, carbs, fat, protein, picture_u
 CREATE TABLE users (id SERIAL PRIMARY KEY, first_name TEXT, email_address TEXT, password_digest TEXT);
 
 -- To add new data, just key in insert into
-INSERT INTO users(first_name, email, password_digest) VALUES('#{first_name}', '#{user_email}', '#{password_digest}')
+INSERT INTO users(first_name, email_address, password_digest) VALUES('#{first_name}', '#{user_email}', '#{password_digest}');
+
+INSERT INTO users(first_name, email_address, password_digest) VALUES('test', 'test@test.com', 'hello');

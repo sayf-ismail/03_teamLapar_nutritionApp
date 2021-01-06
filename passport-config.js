@@ -12,7 +12,7 @@ function initialize(){
         }
 
         try {
-            if(await brcypt.compare(password, user.password)){
+            if(await bcrypt.compare(password, user.password)){
                 
             } else{
                 return done(null, false, { message: 'Password Incorrect'})

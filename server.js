@@ -1,61 +1,95 @@
-const express = require('express');
-const bodyParser = require("body-parser");
-const app = express ();
-const passport = require('passport');
-const brcypt = require('brcypt')
+const express = require('express')
+const bodyParser = require("body-parser")
+const app = express ()
+const passport = require('passport')
+const bcrypt = require('bcrypt')
+const router = express.Router()
+const session = require('express-session')
 
-const initializePassport = require('./passport-config')
+const PORT = 4567
 
 app.set('view engine', 'ejs')
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use('/public', express.static('public'));
 
-// Setting up DB connection
-const pg = require('pg')
-let pool = new pg.Pool({
-    // database: 'food_nutrition'  <----change to actual name of DB
-}) 
+// methods for password hashing
+const generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
 
-app.get('/', (req, res) => {
+// methods for authentication
+const validPassword = (plainTextPassword, passwordHash) => bcrypt.compareSync(plainTextPassword, passwordHash)
+
+// HOMEPAGE
+router.get('/', (req, res) => {
   res.render('index')
 })
 
-// API - Creating another route - pool.query takes two arguments, the SQL and function arguments, db_res is the actual result
-// app.get('/api/food_nutrition', (req, res) => {
-//   run_sql('SELECT * FROM services', db_res => {
-//       res.json(db_res.rows)
-//   })
-// })
-
-//Login
-app.get('/login',(req,res) =>{
-
-  var name = req.query.name
-  var email = req.query.email 
-
-  res.render('login.ejs',{name:name, email: email})
+// LOG IN PAGE
+router.get('/login', (req, res) => {
+  res.render('login')
 })
 
-app.post('/login',(req,res) => {
-  //params
-  try{
-    const hashedPassword = await brcypt.hash(req.body.password,10)
-    var name = req.body.name;
-    var email = req.body.email;
-    var password = hashedPassword;
-   //if succesful, direct to login.ejs
-    res.redirect('login')
-  //if unsucessful, direct to register.ejs
-  } catch {
-      res.redirect('/register')
-  }
+// REGISTRATION PAGE
+router.get('/register', (req, res) => {
+  res.render('register')
 })
 
-
-
-
-// Server port 
-app.listen(4567, function(){
-  console.log("Server started on port 4567")
+//SECTION 1
+// Logging a user in
+router.post('/session', (req, res) => {
+  const email = req.body.email
+  const password = req.body.password
+  run_sql('SELECT * FROM users WHERE email = $1', [email], db_res => {
+    if (db_res.rows.length == 0) {
+      res.render('login')
+    } else {
+      const user = db_res.rows[0]
+      if (validPassword(password, user.password_digest)) {
+        req.session.userId = user.id
+        res.redirect('/')
+      } else {
+        res.render('login')
+      }
+    }
+  })
 })
+
+// Logging a user out
+router.delete('/session', (req, res) => {
+  req.session.userId = undefined
+  req.session.destroy();
+  res.redirect('/')
+})
+
+//SECTION 2
+// Creating a new user
+router.post('/users', (req, res) => {
+  const email = req.body.email
+  const password = req.body.password
+  const password_digest = generateHash(password)
+  run_sql('INSERT INTO users(email, password_digest) VALUES($1, $2)', [email, password_digest], db_res => {
+    res.redirect('/')
+  })
+})
+
+//SECTION 3
+// Setting up database connection
+const pg = require('pg')
+let pool = new pg.Pool({
+    database: 'food_db'  
+}) 
+
+// making requests to the database
+function run_sql(sql, values = [], cb) {
+  pool.query(sql, values, (err, res) => {
+    cb(res)
+  })
+}
+
+
+
+
+
+// Start the server
+app.listen(PORT, () => console.log(`Listening on port: ${PORT}`))

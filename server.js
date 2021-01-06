@@ -3,7 +3,7 @@ const bodyParser = require("body-parser")
 const app = express ()
 const passport = require('passport')
 const bcrypt = require('bcrypt')
-const router = express.Router()
+// const router = express.Router()
 const session = require('express-session')
 
 const PORT = 4567
@@ -20,27 +20,36 @@ const generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(10
 // methods for authentication
 const validPassword = (plainTextPassword, passwordHash) => bcrypt.compareSync(plainTextPassword, passwordHash)
 
+// enabling sessions - this block enables sessions in middleware
+app.use(session({
+  key: 'user_sid',
+  secret: process.env['EXPRESS_SESSION_SECRET_KEY'],
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 600000 }
+}))
+
 // HOMEPAGE
-router.get('/', (req, res) => {
-  res.render('index')
+app.get('/', (req, res) => {
+  res.render('index', {userId: req.session.userId})
 })
 
 // LOG IN PAGE
-router.get('/login', (req, res) => {
+app.get('/login', (req, res) => {
   res.render('login')
 })
 
 // REGISTRATION PAGE
-router.get('/register', (req, res) => {
+app.get('/register', (req, res) => {
   res.render('register')
 })
 
 //SECTION 1
 // Logging a user in
-router.post('/session', (req, res) => {
-  const email = req.body.email
+app.post('/session', (req, res) => {
+  const email = req.body.email_address
   const password = req.body.password
-  run_sql('SELECT * FROM users WHERE email = $1', [email], db_res => {
+  run_sql('SELECT * FROM users WHERE email_address = $1', [email], db_res => {
     if (db_res.rows.length == 0) {
       res.render('login')
     } else {
@@ -56,7 +65,7 @@ router.post('/session', (req, res) => {
 })
 
 // Logging a user out
-router.delete('/session', (req, res) => {
+app.delete('/session', (req, res) => {
   req.session.userId = undefined
   req.session.destroy();
   res.redirect('/')
@@ -64,7 +73,7 @@ router.delete('/session', (req, res) => {
 
 //SECTION 2
 // Creating a new user
-router.post('/users', (req, res) => {
+app.post('/users', (req, res) => {
   const email = req.body.email
   const password = req.body.password
   const password_digest = generateHash(password)

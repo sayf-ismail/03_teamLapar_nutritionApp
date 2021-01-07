@@ -26,15 +26,18 @@ function getFoodNutrition(){
             console.log(res.data)
             var foodNutrition = document.querySelector('#results') 
             foodNutrition.innerHTML += `
-            <div class = "className"> 
-                <img src = '${food.picture_url}'>
+            <div class = "className cartDivElement"> 
+                <img src = '${food.picture_url}' class="food-item-image">
                 <h3>Food Nutrition Details</h3>
-                <p>Dish: '${food.dish}' </p>
+                <p class="dish-name">Dish: '${food.dish}' </p>
                 <p>Portion: '${food.portion}'</p>
-                <p>Calories:'${food.calories}'</p>
+                <p class = "calories">Calories:'${food.calories}'</p>
                 <p>Carbs: '${food.carbs}'</p>
                 <p>Fat: '${food.fat}'</p>
                 <p>Protein: '${food.protein}'</p>
+                <form action="" class="addToCart">
+                    <button type="submit" class="addBtn" onClick="addToCartClicked(event)">+</button>
+                </form>
             </div>
             `
         }));
@@ -45,3 +48,8 @@ searchForm.addEventListener('submit', function(event) {
     event.preventDefault()
     getFoodNutrition()
 })
+
+
+
+// var addFoodButton = document.querySelector('')
+// addFoodButton.addEventListener

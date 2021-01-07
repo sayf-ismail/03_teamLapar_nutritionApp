@@ -18,7 +18,7 @@
                             <% if (userId) { %><li class="mx-3"><p>Current logged in user id: <%= userId %></p></li><% } %>
                             <li class="mx-3"><a href="#">Home</a></li>
                             <li class="mx-3"><a href="#">About</a></li>
-                            <li class="mx-3"><a href="#">Calculator</a></li>
+                            <li class="mx-3"><a href="/calculator">Calculator</a></li>
                             <li class="mx-3"><a href="/register">Sign In</a></li>
                             <% if (userId) { %>
                                 <form action="/session?_method=delete" method="POST">
@@ -135,10 +135,26 @@
                 <button type="submit">Search</button>
             </form>
             </div>
+
         </section>
+        <!-- <div class="row justify-content-center align-items-center"> -->
+            <h1>Nutrition Calculator</h1>
+
+            <h3>Please input your daily calories target: </h3>
+            <form action="">
+              <input type="text">
+              <button type="submit">Submit</button>
+            </form>
+            <div class="cart-items">
+                TEXT
+            </div>
+            <button >CHECKOUT</button>
+        <!-- </div> -->
+
     </main>
     <script src="https://kit.fontawesome.com/700d6a4023.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="public/js/client.js"></script>
+    <script src="/public/js/store.js"></script>
 </body>
 </html>

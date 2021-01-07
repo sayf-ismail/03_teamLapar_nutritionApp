@@ -59,6 +59,11 @@ app.get('/register', (req, res) => {
   res.render('register')
 })
 
+// CALCULATOR PAGE
+app.get('/calculator', (req, res) => {
+  res.render('calculator')
+})
+
 //SECTION 1
 // Logging a user in
 app.post('/session', (req, res) => {

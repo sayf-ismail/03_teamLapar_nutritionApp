@@ -53,33 +53,16 @@ var targetBtn = document.querySelector('.targetBtn')
 targetBtn.addEventListener('click', function(event){
     event.preventDefault()
 
+    // If there are children, remove them first
+    var hasChildren = document.querySelector('.user-target')
+    if (hasChildren.childNodes.length<4) {
     var userTargetTag = document.querySelector('.user-target')
     var targetValue = Number(document.querySelector('.user-target-value').value)
     var h3Tag = document.createElement('h3')
     h3Tag.textContent = `${targetValue}`
     userTargetTag.append(h3Tag)
-
+    } else {
+        hasChildren.removeChild(hasChildren.childNodes[3])
+    }
 
 })
-
-
-
-
-// if target < total
-// if Number(h3Tag.textContent)
-// else if target > total
-
-// var calculateBtn = document.querySelector('.calculateBtn')
-// calculateBtn.addEventListener('click', function(event){
-//     event.preventDefault()
-
-//     var userTargetTag = document.querySelector('.user-target')
-//     var targetValue = document.querySelector('.user-target-value')
-//     var h3Tag = document.createElement('h3')
-//     h3Tag.textContent = `${targetValue}`
-//     userTargetTag.append(h3Tag)
-// })
-
-
-// var addFoodButton = document.querySelector('')
-// addFoodButton.addEventListener

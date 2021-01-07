@@ -36,18 +36,23 @@ function updateCartTotal() {
   var cartItemContainer = document.getElementsByClassName('cart-items')[0]
   var cartRows = cartItemContainer.getElementsByClassName('cart-row')
   var total = 0
-  for (var i = 0; i < cartRows.length; i++) {
-      var cartRow = cartRows[i]
-      var calorieElement = cartRow.getElementsByClassName('cart-calorie')[0]
-      var calorie = parseFloat(calorieElement.innerText.replace('$', ''))
-      total = total + calorie
+  var totalCalories = document.querySelector('.total-calories')
+  if(totalCalories.childNodes.length < 2) {
+    for (var i = 0; i < cartRows.length; i++) {
+        var cartRow = cartRows[i]
+        var calorieElement = cartRow.getElementsByClassName('cart-calorie')[0]
+        var calorie = parseFloat(calorieElement.innerText.replace('$', ''))
+        total = total + calorie
+    }
+    var totalTag = document.querySelector('.total-calories')
+    var h3Tag = document.createElement('h3')
+    h3Tag.textContent = `${total}`
+    totalTag.append(h3Tag)
+    console.log(total)
+    var targetValue = Number(document.querySelector('.user-target-value').value)
+  } else {
+    totalCalories.removeChild(totalCalories.childNodes[1])
   }
-  var totalTag = document.querySelector('.total-calories')
-  var h3Tag = document.createElement('h3')
-  h3Tag.textContent = `${total}`
-  totalTag.append(h3Tag)
-  console.log(total)
-  var targetValue = Number(document.querySelector('.user-target-value').value)
   updateDifference(total,targetValue)
 }
 
@@ -58,12 +63,28 @@ function updateDifference(total, targetValue) {
   h3Tag.textContent = `${difference}`
   differenceTag.append(h3Tag)
   console.log(difference)
-  if (target > total) {
-    console.log('Congrats! You can eat more!')
-  } else {
-    console.log('STOP EATING! TOO MANY CALORIES! THINK OF YOUR HEALTH! GO EXERCISE!')
+
+  var diffSelector = document.querySelector('.difference')
+  var hasExtraChildren = diffSelector.childNodes.length > 2
+
+  if(hasExtraChildren) {
+    for (var i=1; i < diffSelector.childNodes.length; i++) {
+      differenceTag.removeChild(differenceTag.childNodes[i])
+      console.log("removed a child")
+    }
   }
   
+  if (targetValue > total) {
+        var h3Tag = document.createElement('h3')
+        h3Tag.textContent = 'Congrats! You can eat more!'
+        differenceTag.append(h3Tag)
+        console.log("targetValue > total")
+  } else {
+    var h3Tag = document.createElement('h3')
+    h3Tag.textContent = 'STOP EATING! TOO MANY CALORIES! THINK OF YOUR HEALTH! GO EXERCISE!'
+    differenceTag.append(h3Tag)
+    console.log("targetValue < total")
+  }
 }
 
 function removeCartItem(event) {

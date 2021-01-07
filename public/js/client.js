@@ -49,6 +49,36 @@ searchForm.addEventListener('submit', function(event) {
     getFoodNutrition()
 })
 
+var targetBtn = document.querySelector('.targetBtn')
+targetBtn.addEventListener('click', function(event){
+    event.preventDefault()
+
+    var userTargetTag = document.querySelector('.user-target')
+    var targetValue = Number(document.querySelector('.user-target-value').value)
+    var h3Tag = document.createElement('h3')
+    h3Tag.textContent = `${targetValue}`
+    userTargetTag.append(h3Tag)
+
+
+})
+
+
+
+
+// if target < total
+// if Number(h3Tag.textContent)
+// else if target > total
+
+// var calculateBtn = document.querySelector('.calculateBtn')
+// calculateBtn.addEventListener('click', function(event){
+//     event.preventDefault()
+
+//     var userTargetTag = document.querySelector('.user-target')
+//     var targetValue = document.querySelector('.user-target-value')
+//     var h3Tag = document.createElement('h3')
+//     h3Tag.textContent = `${targetValue}`
+//     userTargetTag.append(h3Tag)
+// })
 
 
 // var addFoodButton = document.querySelector('')

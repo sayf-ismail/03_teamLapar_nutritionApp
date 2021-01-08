@@ -17,6 +17,7 @@ Link
 
 #### Challenges
 
+- Database connection issues were faced when deploying to Heroku. One approach we tried was to amend the SSL to 'require' or 'true'.
 <!-- Explanations of the technologies used
 A few paragraphs about the general approach you took
 Link to your user stories – who are your users, what do they want, and why?

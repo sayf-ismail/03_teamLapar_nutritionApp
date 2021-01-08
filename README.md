@@ -9,8 +9,7 @@
 This is for the health-conscious consumer looking to meet their daily caloric goals. 
 
 #### Wireframes
-Link:
-https://immersive-global.slack.com/files/U01D62RJMPU/F01JN8EFDFS/screenshot_2021-01-04_at_10.33.55_pm.png?origin_team=T01C1049KSP&origin_channel=Pbrowse-files
+Link: https://i.imgur.com/L9cjCat.png
 
 #### Database Schema
 Link

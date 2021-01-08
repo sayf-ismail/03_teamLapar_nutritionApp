@@ -132,11 +132,11 @@ app.post('/users', (req, res) => {
 const pg = require('pg')
 let pool;
 if (process.env.PRODUCTION) {
-  pool = new Pool({
+  pool = new pg.Pool({
     connectionString: process.env.DATABASE_URL,
   })
 } else {
-  pool = new Pool({
+  pool = new pg.Pool({
     database: 'food_db',
     user: 'sayf',
     password: 'abc123',

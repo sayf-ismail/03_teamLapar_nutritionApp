@@ -12,7 +12,7 @@ This is for the health-conscious consumer looking to meet their daily caloric go
 Link: https://i.imgur.com/L9cjCat.png
 
 #### Database Schema
-Link
+Link: https://i.imgur.com/49jfnGz.png
 
 #### Challenges
 

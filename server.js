@@ -46,7 +46,7 @@ app.get('/api/food_db', (req, res) => {
 
 // HOMEPAGE
 app.get('/', (req, res) => {
-  res.render('index', {userId: req.session.userId})
+  res.render('index', {userId: req.session.userId, firstName: req.session.firstName})
 })
 
 // LOG IN PAGE
@@ -81,6 +81,7 @@ app.post('/session', (req, res) => {
       const user = db_res.rows[0]
       if (validPassword(password, user.password_digest)) {
         req.session.userId = user.id
+        req.session.firstName = user.first_name
         res.redirect('/')
         console.log("password is CORRECT")
 

@@ -4,6 +4,24 @@
           box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.05);
 }
 
+.cartDivElement {
+  align-items: center;
+  text-align: center;
+}
+
+.user-target {
+  align-items: center;
+  text-align: center;
+}
+
+.calculator {
+  margin-top: 20px;
+}
+
+.search {
+  margin-bottom: 20px;
+}
+
 .section-gap {
   padding: 6.25rem 0;
 }

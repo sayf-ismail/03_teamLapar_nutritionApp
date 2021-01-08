@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt')
 const methodOverride = require('method-override')
 const session = require('express-session')
 
-const PORT = 4567
+const port = process.env.PORT || 3000
 
 app.set('view engine', 'ejs')
 
@@ -130,9 +130,19 @@ app.post('/users', (req, res) => {
 //SECTION 3
 // Setting up database connection
 const pg = require('pg')
-let pool = new pg.Pool({
-    database: 'food_db'  
-}) 
+let pool;
+if (process.env.PRODUCTION) {
+  pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+  })
+} else {
+  pool = new Pool({
+    database: 'food_db',
+    user: 'sayf',
+    password: 'abc123',
+  })
+}
+ 
 
 // making requests to the database
 function run_sql(sql, values = [], cb) {
@@ -142,4 +152,4 @@ function run_sql(sql, values = [], cb) {
 }
 
 // Start the server
-app.listen(PORT, () => console.log(`Listening on port: ${PORT}`))
+app.listen(port, () => console.log(`Listening on port: ${port}`))

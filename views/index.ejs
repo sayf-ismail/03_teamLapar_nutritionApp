@@ -15,11 +15,11 @@
 
                     <div class="desktop-navbar">
                         <ul class="d-flex list-unstyled mb-0">
-                            <% if (userId) { %><li class="mx-3"><p>Current logged in user id: <%= userId %></p></li><% } %>
+                            <% if (userId) { %><li class="mx-3"><a href="">Welcome, <%= firstName.toUpperCase() %></a></li><% } %>
                             <li class="mx-3"><a href="#">Home</a></li>
                             <li class="mx-3"><a href="#">About</a></li>
                             <li class="mx-3"><a href="/calculator">Calculator</a></li>
-                            <li class="mx-3"><a href="/register">Sign In</a></li>
+                            <li class="mx-3"><a href="/register">Sign Up</a></li>
                             <% if (userId) { %>
                                 <form action="/session?_method=delete" method="POST">
                                     <button>Log Out</button>
@@ -129,7 +129,7 @@
             </div>
         </section>
         <section id="results">
-            <div class="row justify-content-center align-items-center">
+            <div class="search row justify-content-center align-items-center">
             <form class="" action="" method="" id="searchForm">
                 <input type="text" name="searchtext" id="searchtext">
                 <button type="submit">Search</button>
@@ -137,28 +137,42 @@
             </div>
 
         </section>
-        <!-- <div class="row justify-content-center align-items-center"> -->
-            <h1>Nutrition Calculator</h1>
 
-            <h3>Please input your daily calories target: </h3>
+        <div class="calculator row justify-content-center align-items-center"><h1>Nutrition Calculator</h1>
+        </div>
+
+        <div class="calculator row justify-content-center align-items-center"><h3>Please input your daily calories target: </h3>
             <form action="">
               <input type="text" class="user-target-value">
               <button type="submit" class="targetBtn">Submit</button>
             </form>
-            <div class="cart-items">
+        </div>
 
+        <div class="calculator row justify-content-center align-items-center">            
+            <div class="cart-items">
             </div>
+        </div>
+
+        <div class="calculator row justify-content-center align-items-center">
             <button class="totalBtn">TOTAL</button>
+        </div>
+        <div class="calculator row justify-content-center align-items-center">
             <div class="user-target">
                 <h3>YOUR TARGET CALORIES:</h3>
             </div>
+        </div>
+        <div class="calculator row justify-content-center align-items-center">
             <h3 class="total-calories">
                 TOTAL CALORIES SELECTED: 
             </h3>
+        </div>
+        <div class="calculator row justify-content-center align-items-center">
             <h3 class="difference">
                 DIFFERENCE: 
             </h3>
-        <!-- </div> -->
+            <div class="diff-div"></div>
+        </div>
+        </div>
 
     </main>
     <script src="https://kit.fontawesome.com/700d6a4023.js" crossorigin="anonymous"></script>

@@ -27,7 +27,7 @@ function getFoodNutrition(){
             var foodNutrition = document.querySelector('#results') 
             foodNutrition.innerHTML += `
             <div class = "className cartDivElement"> 
-                <img src = '${food.picture_url}' class="food-item-image">
+                <img src = '${food.picture_url}' class="food-item-image" width="300" height="200">
                 <h3>Food Nutrition Details</h3>
                 <p class="dish-name">Dish: '${food.dish}' </p>
                 <p>Portion: '${food.portion}'</p>

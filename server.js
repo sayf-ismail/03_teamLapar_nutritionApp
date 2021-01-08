@@ -147,6 +147,7 @@ if (process.env.PRODUCTION) {
 // making requests to the database
 function run_sql(sql, values = [], cb) {
   pool.query(sql, values, (err, res) => {
+    console.log(err)
     cb(res)
   })
 }

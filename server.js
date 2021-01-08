@@ -133,7 +133,7 @@ const pg = require('pg')
 let pool;
 if (process.env.PRODUCTION) {
   pool = new pg.Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL + "?sslmode=require",
   })
 } else {
   pool = new pg.Pool({
@@ -147,7 +147,6 @@ if (process.env.PRODUCTION) {
 // making requests to the database
 function run_sql(sql, values = [], cb) {
   pool.query(sql, values, (err, res) => {
-    console.log(err)
     cb(res)
   })
 }

@@ -133,7 +133,7 @@ const pg = require('pg')
 let pool;
 if (process.env.PRODUCTION) {
   pool = new pg.Pool({
-    connectionString: process.env.DATABASE_URL + "?sslmode=require",
+    connectionString: process.env.DATABASE_URL + "?ssl=true",
   })
 } else {
   pool = new pg.Pool({

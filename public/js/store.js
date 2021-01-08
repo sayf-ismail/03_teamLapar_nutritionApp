@@ -89,8 +89,6 @@ function updateDifference(total, targetValue) {
     h3Tag3.textContent = 'STOP EATING! TOO MANY CALORIES! THINK OF YOUR HEALTH! GO EXERCISE!'
     diffDivSelector.append(h3Tag3)
     console.log("targetValue < total")
-  } else {
-    diffDivSelector.removeChild(diffDivSelector.childNodes[1])
   }
 
 }
